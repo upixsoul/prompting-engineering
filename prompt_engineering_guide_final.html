@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultimate Prompt Engineering Guide</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --text: #243447;
+      --muted: #5b6b7a;
+      --primary: #2563eb;
+      --primary-soft: #eaf2ff;
+      --border: #dbe4f0;
+      --success: #0f766e;
+      --warning: #b45309;
+      --danger: #b91c1c;
+      --shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+	
+	.author-badge {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 8px;
+	  background: linear-gradient(135deg, #2563eb, #1e40af);
+	  color: #ffffff;
+	  padding: 6px 14px;
+	  border-radius: 999px;
+	  font-size: 0.85rem;
+	  font-weight: 600;
+	  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+	  margin-top: 12px;
+	  letter-spacing: 0.3px;
+	}
+
+	.author-badge span {
+	  font-size: 0.75rem;
+	  opacity: 0.85;
+	  font-weight: 500;
+	}
+
+
+    h1, h2, h3 {
+      margin-top: 0;
+      color: #1e293b;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin: 8px 0 12px;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #fbfdff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .highlight {
+      background: var(--primary-soft);
+      border-left: 5px solid var(--primary);
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin: 14px 0;
+    }
+
+    .tip {
+      background: #ecfdf5;
+      border-left: 5px solid #10b981;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin: 14px 0;
+    }
+
+    .warn {
+      background: #fff7ed;
+      border-left: 5px solid #f59e0b;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin: 14px 0;
+    }
+
+    .danger {
+      background: #fef2f2;
+      border-left: 5px solid #ef4444;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin: 14px 0;
+    }
+
+    code, pre {
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 12px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 12px 0;
+    }
+
+    ul, ol {
+      padding-left: 22px;
+    }
+
+    .pill {
+      display: inline-block;
+      background: #eef2ff;
+      color: #3730a3;
+      border: 1px solid #c7d2fe;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      margin: 4px 6px 0 0;
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .checklist li {
+      margin-bottom: 8px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+	
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    
+<div class="hero">
+      <h1>🚀 Ultimate Prompt Engineering Guide</h1>
+      <p>
+        A practical guide to designing prompts that are clearer, more controllable, and more useful,
+        with a real-world focus on learning, software development, and automation.
+      </p>
+
+      <div class="author-badge">
+		  <span>Author</span>
+		  MC. David Alejandro Garcia Garcia
+	  </div>
+	  <br>
+      <div style="margin-top: 30px;">
+        <span class="pill">Clarity</span>
+        <span class="pill">Context</span>
+        <span class="pill">Format</span>
+        <span class="pill">Iteration</span>
+        <span class="pill">Validation</span>
+        <span class="pill">Reliability</span>
+      </div>
+    </div>
+
+    <section>
+      <h2>1) What is Prompt Engineering?</h2>
+      <p>
+        Prompt Engineering is the practice of designing instructions so that an AI model
+        produces more useful, relevant, and consistent responses.
+      </p>
+      <div class="highlight">
+        A good prompt reduces ambiguity, defines the goal, provides enough context,
+        specifies the expected output format, and makes clear what to do if information is missing.
+      </div>
+      <div class="tip">
+        Think of a prompt as a short specification: it is not just “asking something”,
+        it is designing an input that correctly guides the model’s behavior.
+      </div>
+    </section>
+
+    <section>
+      <h2>2) Anatomy of a High-Quality Prompt</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>🎯 Instruction</h3>
+          <p>What you want the model to do.</p>
+          <pre>Summarize the text in 5 bullet points.</pre>
+        </div>
+        <div class="card">
+          <h3>🌍 Context</h3>
+          <p>Information that helps the model respond better.</p>
+          <pre>This is for an executive meeting and the audience is non-technical.</pre>
+        </div>
+        <div class="card">
+          <h3>📥 Input Data</h3>
+          <p>The text, code, or question the model will work on.</p>
+          <pre>### Text ###
+[content here]
+###</pre>
+        </div>
+        <div class="card">
+          <h3>📤 Output Format</h3>
+          <p>How the response should be structured.</p>
+          <pre>Return JSON with: title, summary, risks</pre>
+        </div>
+        <div class="card">
+          <h3>🧪 Examples</h3>
+          <p>Demonstrations of expected inputs and outputs.</p>
+          <pre>Input: "Hello"
+Output: {"language":"en","tone":"neutral"}</pre>
+        </div>
+        <div class="card">
+          <h3>✅ Validation / Fallback</h3>
+          <p>What to do if information is missing or confidence is low.</p>
+          <pre>If data is missing, state your assumptions.
+If you cannot verify it, say so explicitly.</pre>
+        </div>
+      </div>
+
+      <div class="highlight">
+        Recommended formula:
+        <strong>Role + Objective + Context + Input + Constraints + Format + Validation</strong>
+      </div>
+    </section>
+
+    <section>
+      <h2>3) Prompt Categories</h2>
+
+      <h3>🌐 Open-ended</h3>
+      <p><strong>When:</strong> Ideation, exploration.</p>
+      <pre>What frontend frameworks should I learn?</pre>
+
+      <h3>✅ Close-ended</h3>
+      <p><strong>When:</strong> Precise answers.</p>
+      <pre>What is the primary database in AWS?</pre>
+
+      <h3>🧩 Multi-part</h3>
+      <p><strong>When:</strong> Multiple outputs in one prompt.</p>
+      <pre>Suggest some technologies I can use for data visualization</pre>
+      <p>That’s the first part, now the second:</p>
+      <pre>And list their strengths and weaknesses</pre>
+
+      <h3>🎯 Scenario-based</h3>
+      <p>
+        <strong>When:</strong> The scenario is used to set the context within which we want
+        the information that we are querying for. Scenario-based prompts are useful for testing
+        problem-solving skills or exploring hypothetical situations.
+      </p>
+      <pre>I’m hosting a birthday party. They are all between 11 and 13 years old.</pre>
+      <p>That’s the scenario. The second line is the question:</p>
+      <pre>Based on this scenario, what do you think I should organize? What food do you suggest? I have to ensure that they all have a good time.</pre>
+
+      <h3>💭 Opinion-based</h3>
+      <p><strong>When:</strong> Subjective insights.</p>
+      <pre>Do you think microfrontends are worth it?</pre>
+    </section>
+
+    <section>
+      <h2>4) Recommended PRO Structure</h2>
+      <pre>
+Role:
+Act as a senior frontend engineer.
+
+Objective:
+Analyze and optimize the performance of this React component.
+
+Context:
+- App built with Vite + TypeScript
+- Large list with frequent re-renders
+- No external libraries allowed
+
+Input:
+### Component ###
+[code here]
+###
+
+Constraints:
+- Do not use external libraries
+- Explain trade-offs
+- State when NOT to use the solution
+
+Output format:
+1. Diagnosis
+2. Possible causes
+3. Proposed solution
+4. Improved code
+5. Trade-offs
+6. Final validation
+
+Validation:
+If information is missing, assume the minimum and continue.
+Clearly state your assumptions.
+      </pre>
+    </section>
+
+    <section>
+      <h2>5) Roles in Chat Prompts</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>System</h3>
+          <p>Defines general behavior, boundaries, tone, and output format.</p>
+          <pre>You are a technical assistant. If there is not enough information, ask or say "I don't know".</pre>
+        </div>
+        <div class="card">
+          <h3>User</h3>
+          <p>Contains the request, context, and materials.</p>
+          <pre>Analyze this Vite compilation error...</pre>
+        </div>
+        <div class="card">
+          <h3>Assistant</h3>
+          <p>Can be used for previous examples or conversation history.</p>
+          <pre>Example response showing the desired format.</pre>
+        </div>
+      </div>
+
+      <div class="warn">
+        A system message helps steer the model, but it does not guarantee full compliance.
+        That is why testing, measuring, iterating, and adding validation are still important.
+      </div>
+    </section>
+
+    <section>
+      <h2>6) Design Patterns That Work</h2>
+      <ul>
+        <li><strong>Put the instruction first</strong> whenever possible.</li>
+        <li><strong>Use delimiters</strong> to separate context, data, and rules: <code>###</code>, <code>&lt;data&gt;</code>, etc.</li>
+        <li><strong>Specify the output contract</strong>: JSON, bullets, table, steps, checklist.</li>
+        <li><strong>Define fallback behavior</strong>: what to do if information is missing or the request is out of scope.</li>
+        <li><strong>Break down complex tasks</strong> into subtasks if one prompt becomes too large.</li>
+        <li><strong>Iterate</strong>: test a simple version → improve context → add examples → refine format.</li>
+      </ul>
+
+      <pre>
+### Instruction ###
+Extract the entities from the text.
+
+### Format ###
+Return ONLY JSON with this structure:
+{
+  "people": [],
+  "companies": [],
+  "places": []
+}
+
+### Text ###
+[text here]
+###
+      </pre>
+    </section>
+
+    <section>
+      <h2>7) Prompt Types by Goal</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>❓ Direct Question</h3>
+          <p>To get a concrete answer.</p>
+          <pre>What is the difference between SQL and NoSQL?</pre>
+        </div>
+        <div class="card">
+          <h3>📋 Instruction</h3>
+          <p>To ask for a specific task.</p>
+          <pre>Explain React hooks with simple examples.</pre>
+        </div>
+        <div class="card">
+          <h3>🧲 Extraction</h3>
+          <p>To convert free text into structure.</p>
+          <pre>Extract customer_name, invoice_date, and total_amount as JSON.</pre>
+        </div>
+        <div class="card">
+          <h3>🔍 Classification</h3>
+          <p>To assign predefined labels.</p>
+          <pre>Classify the sentiment: Positive | Neutral | Negative</pre>
+        </div>
+        <div class="card">
+          <h3>✍️ Transformation</h3>
+          <p>To summarize, translate, rewrite, or change tone.</p>
+          <pre>Rewrite this email with a professional and firm tone.</pre>
+        </div>
+        <div class="card">
+          <h3>💡 Ideation</h3>
+          <p>For brainstorming and exploration.</p>
+          <pre>Suggest 10 project ideas using React + TypeScript.</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>8) Zero-shot, Few-shot, and Chain-of-Thought</h2>
+
+      <h3>🔹 Zero-shot</h3>
+      <p>Give only the instruction, with no examples. Works well for simple or common tasks.</p>
+      <pre>
+Classify the sentiment as Positive, Neutral, or Negative.
+Text: "The product is okay, but I expected more."
+      </pre>
+
+      <h3>🔹 Few-shot</h3>
+      <p>Add examples to control format or improve consistency in more sensitive tasks.</p>
+      <pre>
+Input: "Hello, send it today"
+Output: "Could you please send it today?"
+
+Input: "Send me the file now"
+Output:
+      </pre>
+
+      <h3>🔹 Chain-of-Thought (CoT)</h3>
+      <p>Useful for step-by-step reasoning, debugging, or problems with multiple stages.</p>
+      <pre>
+Solve the problem step by step and then provide the final answer.
+      </pre>
+
+      <div class="warn">
+        If zero-shot does not work well, try few-shot.
+        If few-shot still fails on complex tasks, break the task down or use chaining.
+      </div>
+
+      <div class="danger">
+        Important note:
+        in some modern reasoning models, overloading the prompt with complex techniques may not help.
+        Clear and simple instructions often work best.
+      </div>
+    </section>
+
+    <section>
+      <h2>9) Prompt Chaining</h2>
+      <p>
+        When a task is too large for a single prompt, it is often better to divide it into steps.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Step 1</h3>
+          <p>Extract relevant information.</p>
+          <pre>Extract the relevant quotes from the document to answer the question.</pre>
+        </div>
+        <div class="card">
+          <h3>Step 2</h3>
+          <p>Use the extracted content to build the response.</p>
+          <pre>Based on the extracted quotes, answer the question with a clear and precise tone.</pre>
+        </div>
+      </div>
+
+      <div class="tip">
+        Benefits: more control, more transparency, easier debugging, and better reliability.
+      </div>
+    </section>
+
+    <section>
+      <h2>10) Generated Knowledge and RAG</h2>
+      <h3>🧠 Generated Knowledge</h3>
+      <p>
+        First, ask the model to generate or list relevant knowledge,
+        then reuse that information in a second prompt.
+      </p>
+      <pre>
+Step 1:
+Generate 5 key facts about Kubernetes for a frontend developer.
+
+Step 2:
+Use ONLY those facts to write a short and clear explanation.
+      </pre>
+
+      <h3>📚 RAG (Retrieval-Augmented Generation)</h3>
+      <p>
+        Instead of relying only on the model’s internal knowledge,
+        retrieve information from documents or external sources and ask it to answer based on them.
+      </p>
+      <pre>
+Answer ONLY with the information included between ###.
+If the answer is not found, say "Not found in the context".
+
+###
+[document or excerpts]
+###
+      </pre>
+
+      <div class="highlight">
+        Use RAG when you need fresh data, internal documents, policies, or verifiable content.
+      </div>
+    </section>
+
+    <section>
+      <h2>11) Cues, Delimiters, and Output Contracts</h2>
+      <h3>🔹 Cues</h3>
+      <p>
+        A cue is a hint that helps the model start the output with the right structure.
+      </p>
+      <pre>
+Summarize the email.
+Key points:
+1.
+      </pre>
+
+      <h3>🔹 Delimiters</h3>
+      <pre>
+### Instruction ###
+Summarize the following text in 3 bullet points.
+
+### Text ###
+[content]
+###
+      </pre>
+
+      <h3>🔹 Output Contract</h3>
+      <pre>
+Return ONLY this JSON:
+{
+  "summary": "",
+  "risks": [],
+  "next_steps": []
+}
+      </pre>
+    </section>
+
+    <section>
+      <h2>12) Best Practices</h2>
+      <ul>
+        <li>Start simple and improve iteratively.</li>
+        <li>Be specific, but avoid irrelevant detail.</li>
+        <li>Use examples when format matters.</li>
+        <li>Define tone, audience, and technical level if that affects the answer.</li>
+        <li>Specify what to do if context is missing.</li>
+        <li>Avoid contradictory instructions.</li>
+        <li>Validate critical outputs: AI can sound confident and still be wrong.</li>
+      </ul>
+
+      <div class="tip">
+        Practical rules:
+        “be clear”, “define the format”, “delimit the context”, “iterate”, “validate”.
+      </div>
+    </section>
+
+    <section>
+      <h2>13) Common Mistakes</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>❌ Vague Prompt</h3>
+          <pre>Explain hooks</pre>
+        </div>
+        <div class="card">
+          <h3>✅ Better Version</h3>
+          <pre>
+Explain useEffect, useMemo, and useCallback for a junior developer.
+Include examples and when NOT to use each one.
+          </pre>
+        </div>
+        <div class="card">
+          <h3>❌ No expected format</h3>
+          <pre>Analyze this text</pre>
+        </div>
+        <div class="card">
+          <h3>✅ Better Version</h3>
+          <pre>
+Analyze this text and return:
+1. Summary
+2. Risks
+3. Suggested actions
+          </pre>
+        </div>
+      </div>
+
+      <div class="danger">
+        Avoid mixing “be brief” with “be comprehensive” unless you clearly prioritize one.
+      </div>
+    </section>
+
+    <section>
+      <h2>14) Useful Templates for Development</h2>
+
+      <h3>🐛 Debugging</h3>
+      <pre>
+Act as a senior engineer.
+
+Analyze this error:
+### ERROR ###
+[paste the error]
+###
+
+Context:
+- React + Vite + TypeScript
+
+Return:
+1. Possible causes
+2. How to reproduce
+3. Recommended solution
+4. Trade-offs
+5. What to verify afterward
+      </pre>
+
+      <h3>🔍 Code Review</h3>
+      <pre>
+Review this code.
+
+Evaluate:
+- Readability
+- Performance
+- Potential bugs
+- Maintainability
+- Basic security
+
+Deliver:
+- Findings
+- Severity
+- Recommendation
+- Suggested code
+      </pre>
+
+      <h3>⚡ Code Generation</h3>
+      <pre>
+Create a custom React + TypeScript hook for data fetching.
+
+Requirements:
+- loading
+- error
+- cancellation with AbortController
+- no any types
+
+Return:
+- code
+- explanation
+- trade-offs
+      </pre>
+
+      <h3>🏗️ Architecture</h3>
+      <pre>
+Design a strategy for managing global state in a medium-sized React app.
+
+Compare:
+- Context API
+- Zustand
+- Redux Toolkit
+
+Return:
+- when to use each option
+- pros and cons
+- final recommendation
+      </pre>
+    </section>
+
+    <section>
+      <h2>15) Document QA and Controlled Extraction</h2>
+      <h3>📄 Question Answering with Context</h3>
+      <pre>
+Answer ONLY using the content between ###.
+If the answer does not appear, respond: "It is not found in the document".
+
+###
+[text or document]
+###
+
+Question:
+[your question]
+      </pre>
+
+      <h3>🧲 Structured Extraction</h3>
+      <pre>
+Extract the following information from the text:
+
+- customer_name
+- invoice_date
+- total_amount
+
+Return ONLY JSON with exactly these keys:
+{
+  "customer_name": null,
+  "invoice_date": null,
+  "total_amount": null
+}
+      </pre>
+    </section>
+
+    <section>
+      <h2>16) Final Quality Checklist</h2>
+      <ul class="checklist">
+        <li>✅ Is the task clear?</li>
+        <li>✅ Is there enough relevant context?</li>
+        <li>✅ Is the input clearly delimited?</li>
+        <li>✅ Is the output format specified?</li>
+        <li>✅ Are useful constraints included?</li>
+        <li>✅ Is it clear what to do if information is missing?</li>
+        <li>✅ Does the prompt avoid contradictions?</li>
+        <li>✅ Does the output require human validation?</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>17) Master Reference Prompt</h2>
+      <pre>
+Act as a senior frontend engineer.
+
+Objective:
+Optimize the performance of a React component.
+
+Context:
+- React + Vite + TypeScript
+- Large list
+- Frequent re-renders
+- No external libraries
+
+Input:
+### Component ###
+[code here]
+###
+
+Constraints:
+- Do not use external dependencies
+- Explain trade-offs
+- State when NOT to apply the solution
+- If data is missing, assume the minimum and continue
+
+Output format:
+1. Diagnosis
+2. Possible causes
+3. Solution
+4. Proposed code
+5. Trade-offs
+6. What to validate afterward
+
+Validation:
+Review your own solution and correct weaknesses if you detect them.
+      </pre>
+    </section>
+
+    
+	
+	<p class="footer">
+	  Built for studying and applying Prompt Engineering in real-world work,
+	  learning, and development scenarios.
+	</p>
+
+	<div style="text-align:center;">
+	  <div class="author-badge">
+		<span>Author</span>
+		MC. David Alejandro Garcia Garcia
+	  </div>
+	</div>
+
+  </div>
+</body>
+</html>
